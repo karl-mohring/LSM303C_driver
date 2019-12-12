@@ -28,6 +28,10 @@ bool LSM303C::comms_check() {
     uint8_t mag_id;
     read(&xl_id, LSM303C_I2C_ADDRESS_XL, WHO_AM_I);
     read(&mag_id, LSM303C_I2C_ADDRESS_MAG, WHO_AM_I);
+
+    // Add ArduinoLog to include files to run the debug output
+    // Log.warning(F("XL ID: %X (%X)\tMag ID: %X (%X)\n"), xl_id, LSM303C_XL_ID, mag_id, LSM303C_MAG_ID);
+
     return ((xl_id == LSM303C_XL_ID) and (mag_id == LSM303C_MAG_ID));
 }
 
