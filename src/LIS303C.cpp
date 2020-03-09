@@ -724,13 +724,17 @@ float LSM303C::get_temperature() {
  * Read in the contents of the FIFO buffer.
  * The FIFO buffer can store up to 32 levels of recorded accelerometer data.
  * Each reading is 6 bytes; 2 bytes for each axis.
- * @param data: Array of containers to read raw readings into. Should be 32 readings deep.
+ * @param data Array of containers to read raw readings into. Should be 32 readings deep.
+ * @param max_measurements The maximum number of levels to read from the FIFO cache.
  * @return: Number of readings taken from the FIFO buffer.
  */
-uint8_t LSM303C::read_fifo(lsm303c_xl_raw_data_t data[]) {
-    uint8_t buffer[LSM303C_XL_READ_SIZE * 32];
+uint8_t LSM303C::read_fifo(lsm303c_xl_raw_data_t data[], uint8_t max_measurements) {
+    uint8_t buffer[LSM303C_XL_READ_SIZE * LSM303C_FIFO_CAPACITY];
     lsm303c_fifo_status_t fifo;
+
+    // Calculate the number of bytes to be read from the buffer
     read_status(fifo);
+    if (fifo.level > max_measurements) fifo.level = max_measurements;
     uint16_t read_size = LSM303C_XL_READ_SIZE * fifo.level;
     if (read_size > 0) {
         read(buffer, LSM303C_I2C_ADDRESS_XL, OUT_X_L, read_size);

@@ -9,6 +9,7 @@ const uint8_t LSM303C_XL_ID = 0x41;
 const uint8_t LSM303C_MAG_ID = 0x3D;
 const float LSM303C_MAG_SCALAR = 0.58;  // milli-gauss per adc level.
 const float LSM303C_TEMPERATURE_SCALAR = 1.0 / 8.0;
+const uint8_t LSM303C_FIFO_CAPACITY = 32;
 
 /**
  * Communication modes for the device [I2C, SPI]
@@ -817,7 +818,7 @@ class LSM303C {
     float get_temperature();
 
     // Read in data from the FIFO buffer
-    uint8_t read_fifo(lsm303c_xl_raw_data_t data[]);
+    uint8_t read_fifo(lsm303c_xl_raw_data_t data[], uint8_t max_measurements = LSM303C_FIFO_CAPACITY);
 
     // Read the status of the sensor's functions
     void read_status(lsm303c_xl_status_t& status);
