@@ -20,17 +20,9 @@ enum LSM303C_COMMS_MODE { LSM303C_I2C_MODE, LSM303C_SPI_MODE };
  * I2C Addresses of each device section.
  * They are separate for whatever reason and fixed.
  */
-typedef enum LSM303C_I2C_ADDRESS {
-    LSM303C_I2C_ADDRESS_XL = 0x1D,
-    LSM303C_I2C_ADDRESS_MAG = 0x1E
-} lsm303c_device_address_t;
+typedef enum LSM303C_I2C_ADDRESS { LSM303C_I2C_ADDRESS_XL = 0x1D, LSM303C_I2C_ADDRESS_MAG = 0x1E } lsm303c_device_address_t;
 
-enum LSM303C_DATA_READ_SIZE {
-    LSM303C_XL_READ_SIZE = 6,
-    LSM303C_READ_SIZE_SINGLE = 2,
-    LSM303C_MAG_READ_SIZE = 6,
-    LSM303C_TEMPERATURE_READ_SIZE = 2
-};
+enum LSM303C_DATA_READ_SIZE { LSM303C_XL_READ_SIZE = 6, LSM303C_READ_SIZE_SINGLE = 2, LSM303C_MAG_READ_SIZE = 6, LSM303C_TEMPERATURE_READ_SIZE = 2 };
 
 ///////////////////////////////////////////////////////////////////////////////
 // * Accelerometer definitions
@@ -126,12 +118,7 @@ enum LSM303C_HPF_MODE { LSM303C_HPF_MODE_NORMAL = 0x00, LSM303C_HPF_MODE_REFEREN
  * Anyway, looks like the low-pass filter is intended for oversampling.
  * It's a shame the cutoff frequencies don't also correspond with the decimation rates.
  */
-enum LSM303C_LPF_CUTOFF {
-    LSM303C_LPF_CUTOFF_ODR_DIV_50 = 0,
-    LSM303C_LPF_CUTOFF_ODR_DIV_100 = 1,
-    LSM303C_LPF_CUTOFF_ODR_DIV_9 = 2,
-    LSM303C_LPF_CUTOFF_ODR_DIV_400 = 3
-};
+enum LSM303C_LPF_CUTOFF { LSM303C_LPF_CUTOFF_ODR_DIV_50 = 0, LSM303C_LPF_CUTOFF_ODR_DIV_100 = 1, LSM303C_LPF_CUTOFF_ODR_DIV_9 = 2, LSM303C_LPF_CUTOFF_ODR_DIV_400 = 3 };
 
 /**
  * Configuration for CTRL_REG2_A.
@@ -142,11 +129,11 @@ enum LSM303C_LPF_CUTOFF {
 typedef union {
     uint8_t raw;
     struct {
-        uint8_t interrupt1_high_pass_filter_enabled : 1;  // High-pass filter enable for interrupt1
-        uint8_t interrupt2_high_pass_filter_enabled : 1;  // High pass filter enable for interrupt2
-        uint8_t internal_high_pass_filter_enabled : 1;    // 0: internal filter bypassed; 1: output data filtered
+        uint8_t interrupt1_high_pass_filter_enabled : 1;          // High-pass filter enable for interrupt1
+        uint8_t interrupt2_high_pass_filter_enabled : 1;          // High pass filter enable for interrupt2
+        uint8_t internal_high_pass_filter_enabled : 1;            // 0: internal filter bypassed; 1: output data filtered
         uint8_t high_pass_filter_external_reference_enabled : 2;  // High pass filter mode (LSM303C_HPF_MODE)
-        uint8_t low_pass_filter_cutoff : 2;  // High pass filter cutoff frequency selection (LSM303C_LPF_CUTOFF)
+        uint8_t low_pass_filter_cutoff : 2;                       // High pass filter cutoff frequency selection (LSM303C_LPF_CUTOFF)
     };
 } lsm303c_xl_filter_config_t;
 
@@ -189,12 +176,7 @@ enum LSM303C_XL_SCALE { LSM303C_XL_SCALE_2G = 0, LSM303C_XL_SCALE_4G = 2, LSM303
  * Bandwidth of the anti-aliasing filter for acceleration measurements.
  * The bandwidth is always 400 Hz for sampling rates of 10 Hz and 50 Hz.
  */
-enum LSM303C_AA_BANDWIDTH {
-    LSM303C_AA_BW_400HZ = 0,
-    LSM303C_AA_BW_200HZ = 1,
-    LSM303C_AA_BW_100HZ = 2,
-    LSM303C_AA_BW_50HZ = 3
-};
+enum LSM303C_AA_BANDWIDTH { LSM303C_AA_BW_400HZ = 0, LSM303C_AA_BW_200HZ = 1, LSM303C_AA_BW_100HZ = 2, LSM303C_AA_BW_50HZ = 3 };
 
 /**
  * Configuration for CTRL_REG4_A.
@@ -228,11 +210,7 @@ enum LSM303C_INTERRUPT_OUTPUT_MODE { LSM303C_INT_PUSH_PULL = 0, LSM303C_INT_OPEN
  * Self test modes.
  * TODO - self-test mode explanation
  */
-enum LSM303C_SELF_TEST_MODE {
-    LSM303C_SELF_TEST_NORMAL = 0,
-    LSM303C_POSITIVE_SELF_TEST = 1,
-    LSM303C_NEGATIVE_SELF_TEST = 2
-};
+enum LSM303C_SELF_TEST_MODE { LSM303C_SELF_TEST_NORMAL = 0, LSM303C_POSITIVE_SELF_TEST = 1, LSM303C_NEGATIVE_SELF_TEST = 2 };
 
 /**
  * Accelerometer reading decimation mode.
@@ -304,10 +282,10 @@ enum LSM303C_FIFO_MODE {
 typedef union {
     uint8_t raw;
     struct {
-        uint8_t interrupt1_4d_enabled : 1;     // Enable 4D position recognition for interrupt generator 1
-        uint8_t interrupt2_4d_enabled : 1;     // Enable 4D position recognition for interrupt generator 2
-        uint8_t interrupt1_latch_enabled : 1;  // Latch interrupt request. Cleared by reading IG_SRC
-        uint8_t interrupt2_latch_enabled : 1;  // Latch interrupt request. Cleared by reading IG_SRC
+        uint8_t interrupt1_4d_enabled : 1;                      // Enable 4D position recognition for interrupt generator 1
+        uint8_t interrupt2_4d_enabled : 1;                      // Enable 4D position recognition for interrupt generator 2
+        uint8_t interrupt1_latch_enabled : 1;                   // Latch interrupt request. Cleared by reading IG_SRC
+        uint8_t interrupt2_latch_enabled : 1;                   // Latch interrupt request. Cleared by reading IG_SRC
         uint8_t interrupt1_duration_counter_reset_enabled : 1;  // Duration counter mode (LSM303C_DURATION_COUNTER_MODE)
         uint8_t interrupt2_duration_counter_reset_enabled : 1;  // Duration counter mode (LSM303C_DURATION_COUNTER_MODE)
     };
@@ -547,7 +525,7 @@ typedef union {
 
 /**
  * Full-scale range of the magnetometer.
- * Only 16 guass is available, so that's one fewer decision to make.
+ * Only 16 gauss is available, so that's one fewer decision to make.
  */
 enum LSM303C_MAG_SCALE { LSM303C_MAG_SCALE_16B = 3 };
 
@@ -581,11 +559,7 @@ typedef union {
  *
  * Continuous conversion mode just updates the output register at the rate specified in CTRL_REG1_M.
  */
-enum LSM303C_MAG_CONVERSION_MODE {
-    LSM303C_MAG_CONTINUOUS_CONVERSION = 0,
-    LSM303C_MAG_SINGLE_CONVERSION = 1,
-    LSM303C_MAG_POWER_DOWN = 2
-};
+enum LSM303C_MAG_CONVERSION_MODE { LSM303C_MAG_CONTINUOUS_CONVERSION = 0, LSM303C_MAG_SINGLE_CONVERSION = 1, LSM303C_MAG_POWER_DOWN = 2 };
 
 /**
  * Configuration for CTRL_REG3_M.
@@ -602,7 +576,7 @@ typedef union {
         uint8_t _reserved1 : 2;
         uint8_t low_power_mode : 1;  // Low power mode sets the sample rate to 0.625 Hz and performs minimal filtering
         uint8_t _reserved2 : 1;
-        uint8_t i2c_disabled : 1;  // Disables I2C communicationss
+        uint8_t i2c_disabled : 1;  // Disables I2C communications
     };
 } lsm303c_mag_mode_config_t;
 
@@ -764,68 +738,68 @@ class LSM303C {
     bool comms_check();
 
     // Write configuration to a register
-    void write_config(lsm303c_xl_inactive_threshold_t config);
-    void write_config(lsm303c_xl_inactive_duration_t config);
-    void write_config(lsm303c_xl_rate_config_t config);
-    void write_config(lsm303c_xl_filter_config_t config);
-    void write_config(lsm303c_xl_interrupt_config_t config);
-    void write_config(lsm303c_xl_scale_bw_config_t config);
-    void write_config(lsm303c_xl_int_dec_debug_config_t config);
-    void write_config(lsm303c_xl_reboot_config_t config);
-    void write_config(lsm303c_xl_int_mode_config_t config);
-    void write_config(lsm303c_fifo_config_t config);
-    void write_config(lsm303c_mag_temp_config_t config);
-    void write_config(lsm303c_mag_scale_config_t config);
-    void write_config(lsm303c_mag_mode_config_t config);
-    void write_config(lsm303c_mag_data_config_t config);
-    void write_config(lsm303c_mag_bdu_config_t config);
-    void write_config(lsm303c_mag_interrupt_config_t config);
-    void write_config(lsm303c_xl_intgen_config_t config, uint8_t int_number = 1);
-    void write_config(lsm303c_xl_intgen_duration_config_t config, uint8_t int_number = 1);
-    void write_config(lsm303c_xl_intgen_threshold_config_t config, uint8_t int_number = 1, char axis = 'x');
+    void write(lsm303c_xl_inactive_threshold_t config);
+    void write(lsm303c_xl_inactive_duration_t config);
+    void write(lsm303c_xl_rate_config_t config);
+    void write(lsm303c_xl_filter_config_t config);
+    void write(lsm303c_xl_interrupt_config_t config);
+    void write(lsm303c_xl_scale_bw_config_t config);
+    void write(lsm303c_xl_int_dec_debug_config_t config);
+    void write(lsm303c_xl_reboot_config_t config);
+    void write(lsm303c_xl_int_mode_config_t config);
+    void write(lsm303c_fifo_config_t config);
+    void write(lsm303c_mag_temp_config_t config);
+    void write(lsm303c_mag_scale_config_t config);
+    void write(lsm303c_mag_mode_config_t config);
+    void write(lsm303c_mag_data_config_t config);
+    void write(lsm303c_mag_bdu_config_t config);
+    void write(lsm303c_mag_interrupt_config_t config);
+    void write(lsm303c_xl_intgen_config_t config, uint8_t int_number = 1);
+    void write(lsm303c_xl_intgen_duration_config_t config, uint8_t int_number = 1);
+    void write(lsm303c_xl_intgen_threshold_config_t config, uint8_t int_number = 1, char axis = 'x');
 
     // Read configuration from a register
-    void read_config(lsm303c_xl_inactive_threshold_t config);
-    void read_config(lsm303c_xl_inactive_duration_t config);
-    void read_config(lsm303c_xl_rate_config_t& config);
-    void read_config(lsm303c_xl_filter_config_t& config);
-    void read_config(lsm303c_xl_interrupt_config_t& config);
-    void read_config(lsm303c_xl_scale_bw_config_t& config);
-    void read_config(lsm303c_xl_int_dec_debug_config_t& config);
-    void read_config(lsm303c_xl_reboot_config_t& config);
-    void read_config(lsm303c_xl_int_mode_config_t& config);
-    void read_config(lsm303c_fifo_config_t& config);
-    void read_config(lsm303c_mag_temp_config_t& config);
-    void read_config(lsm303c_mag_scale_config_t& config);
-    void read_config(lsm303c_mag_mode_config_t& config);
-    void read_config(lsm303c_mag_data_config_t& config);
-    void read_config(lsm303c_mag_bdu_config_t& config);
-    void read_config(lsm303c_mag_interrupt_config_t& config);
-    void read_config(lsm303c_xl_intgen_config_t& config, uint8_t int_number = 1);
-    void read_config(lsm303c_xl_intgen_duration_config_t& config, uint8_t int_number = 1);
-    void read_config(lsm303c_xl_intgen_threshold_config_t& config, uint8_t int_number = 1, char axis = 'x');
+    void read(lsm303c_xl_inactive_threshold_t& config);
+    void read(lsm303c_xl_inactive_duration_t& config);
+    void read(lsm303c_xl_rate_config_t& config);
+    void read(lsm303c_xl_filter_config_t& config);
+    void read(lsm303c_xl_interrupt_config_t& config);
+    void read(lsm303c_xl_scale_bw_config_t& config);
+    void read(lsm303c_xl_int_dec_debug_config_t& config);
+    void read(lsm303c_xl_reboot_config_t& config);
+    void read(lsm303c_xl_int_mode_config_t& config);
+    void read(lsm303c_fifo_config_t& config);
+    void read(lsm303c_mag_temp_config_t& config);
+    void read(lsm303c_mag_scale_config_t& config);
+    void read(lsm303c_mag_mode_config_t& config);
+    void read(lsm303c_mag_data_config_t& config);
+    void read(lsm303c_mag_bdu_config_t& config);
+    void read(lsm303c_mag_interrupt_config_t& config);
+    void read(lsm303c_xl_intgen_config_t& config, uint8_t int_number = 1);
+    void read(lsm303c_xl_intgen_duration_config_t& config, uint8_t int_number = 1);
+    void read(lsm303c_xl_intgen_threshold_config_t& config, uint8_t int_number = 1, char axis = 'x');
 
     // Read data from the sensor's output registers
-    void read_data(lsm303c_xl_raw_data_t& data);
-    void read_data(lsm303c_xl_corrected_data_t& data);
-    void read_data(lsm303c_xl_roll_pitch_data_t& data);
-    void read_data(lsm303c_mag_raw_data_t& data);
-    void read_data(lsm303c_mag_corrected_data_t& data);
-    void read_data(lsm303c_orientation_data_t& data);
-    void read_data(lsm303c_temp_data_t& data);
+    void read(lsm303c_xl_raw_data_t& data);
+    void read(lsm303c_xl_corrected_data_t& data);
+    void read(lsm303c_xl_roll_pitch_data_t& data);
+    void read(lsm303c_mag_raw_data_t& data);
+    void read(lsm303c_mag_corrected_data_t& data);
+    void read(lsm303c_orientation_data_t& data);
+    void read(lsm303c_temp_data_t& data);
 
     float get_heading(bool tilt_correct_enabled = false);
     float get_temperature();
 
     // Read in data from the FIFO buffer
-    uint8_t read_fifo(lsm303c_xl_raw_data_t data[], uint8_t max_measurements = LSM303C_FIFO_CAPACITY);
+    uint8_t read(lsm303c_xl_raw_data_t data[], uint8_t max_measurements = LSM303C_FIFO_CAPACITY);
 
     // Read the status of the sensor's functions
-    void read_status(lsm303c_xl_status_t& status);
-    void read_status(lsm303c_fifo_status_t& status);
-    void read_status(lsm303c_mag_status_t& status);
-    void read_status(lsm303c_mag_interrupt_status_t& status);
-    void read_status(lsm303c_xl_intgen_status_t& status, uint8_t int_number = 1);
+    void read(lsm303c_xl_status_t& status);
+    void read(lsm303c_fifo_status_t& status);
+    void read(lsm303c_mag_status_t& status);
+    void read(lsm303c_mag_interrupt_status_t& status);
+    void read(lsm303c_xl_intgen_status_t& status, uint8_t int_number = 1);
 
     void set_declination(float declination);
 

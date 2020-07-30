@@ -78,8 +78,7 @@ bool LSM303C::read(uint8_t* output, lsm303c_device_address_t device_address, lsm
  * @param length: Number of bytes to write.
  * @return: True if successful.
  */
-bool LSM303C::write_i2c(uint8_t* input, lsm303c_device_address_t device_address, lsm303c_reg_t address,
-                        uint8_t length) {
+bool LSM303C::write_i2c(uint8_t* input, lsm303c_device_address_t device_address, lsm303c_reg_t address, uint8_t length) {
     bool result = true;
     Wire.beginTransmission(device_address);
     Wire.write(address);
@@ -101,8 +100,7 @@ bool LSM303C::write_i2c(uint8_t* input, lsm303c_device_address_t device_address,
  * @param length: Number of bytes to read.
  * @return: True if successful.
  */
-bool LSM303C::read_i2c(uint8_t* output, lsm303c_device_address_t device_address, lsm303c_reg_t address,
-                       uint8_t length) {
+bool LSM303C::read_i2c(uint8_t* output, lsm303c_device_address_t device_address, lsm303c_reg_t address, uint8_t length) {
     bool result = true;
     Wire.beginTransmission(device_address);
     Wire.write(address);
@@ -128,8 +126,7 @@ bool LSM303C::read_i2c(uint8_t* output, lsm303c_device_address_t device_address,
  * @param length: Number of bytes to write.
  * @return: True if successful.
  */
-bool LSM303C::write_spi(uint8_t* input, lsm303c_device_address_t device_address, lsm303c_reg_t address,
-                        uint8_t length) {
+bool LSM303C::write_spi(uint8_t* input, lsm303c_device_address_t device_address, lsm303c_reg_t address, uint8_t length) {
     bool success = false;
     int8_t cs_pin = -1;
     if (device_address == LSM303C_I2C_ADDRESS_XL)
@@ -158,8 +155,7 @@ bool LSM303C::write_spi(uint8_t* input, lsm303c_device_address_t device_address,
  * @param length: Number of bytes to read.
  * @return: True if successful.
  */
-bool LSM303C::read_spi(uint8_t* output, lsm303c_device_address_t device_address, lsm303c_reg_t address,
-                       uint8_t length) {
+bool LSM303C::read_spi(uint8_t* output, lsm303c_device_address_t device_address, lsm303c_reg_t address, uint8_t length) {
     bool success = false;
     uint8_t num_empty_bytes = 0;
     int8_t cs_pin = -1;
@@ -192,136 +188,104 @@ bool LSM303C::read_spi(uint8_t* output, lsm303c_device_address_t device_address,
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_xl_inactive_threshold_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, ACT_THS);
-}
+void LSM303C::write(lsm303c_xl_inactive_threshold_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, ACT_THS); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_xl_inactive_duration_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, ACT_DUR);
-}
+void LSM303C::write(lsm303c_xl_inactive_duration_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, ACT_DUR); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_xl_rate_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG1);
-}
+void LSM303C::write(lsm303c_xl_rate_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG1); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_xl_filter_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG2);
-}
+void LSM303C::write(lsm303c_xl_filter_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG2); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_xl_interrupt_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG3);
-}
+void LSM303C::write(lsm303c_xl_interrupt_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG3); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_xl_scale_bw_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG4);
-}
+void LSM303C::write(lsm303c_xl_scale_bw_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG4); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_xl_int_dec_debug_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG5);
-}
+void LSM303C::write(lsm303c_xl_int_dec_debug_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG5); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_xl_reboot_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG6);
-}
+void LSM303C::write(lsm303c_xl_reboot_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG6); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_xl_int_mode_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG7);
-}
+void LSM303C::write(lsm303c_xl_int_mode_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG7); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_fifo_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, FIFO_CTRL);
-}
+void LSM303C::write(lsm303c_fifo_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, FIFO_CTRL); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_mag_temp_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG1);
-}
+void LSM303C::write(lsm303c_mag_temp_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG1); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_mag_scale_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG2);
-}
+void LSM303C::write(lsm303c_mag_scale_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG2); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_mag_mode_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG3);
-}
+void LSM303C::write(lsm303c_mag_mode_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG3); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_mag_data_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG4);
-}
+void LSM303C::write(lsm303c_mag_data_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG4); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_mag_bdu_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG5);
-}
+void LSM303C::write(lsm303c_mag_bdu_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG5); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  */
-void LSM303C::write_config(lsm303c_mag_interrupt_config_t config) {
-    write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, INT_CFG);
-}
+void LSM303C::write(lsm303c_mag_interrupt_config_t config) { write((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, INT_CFG); }
 
 /**
  * Write configuration to the device.
  * @param config: Configuration type and data to be written.
  * @param int_number: Interrupt generator number to write configuration to.
  */
-void LSM303C::write_config(lsm303c_xl_intgen_config_t config, uint8_t int_number) {
+void LSM303C::write(lsm303c_xl_intgen_config_t config, uint8_t int_number) {
     lsm303c_reg_t reg_address = lsm303c_reg_t(0);
     if (int_number == 1)
         reg_address = IG_CFG1;
@@ -335,7 +299,7 @@ void LSM303C::write_config(lsm303c_xl_intgen_config_t config, uint8_t int_number
  * @param config: Configuration type and data to be written.
  * @param int_number: Interrupt generator number to write configuration to.
  */
-void LSM303C::write_config(lsm303c_xl_intgen_duration_config_t config, uint8_t int_number) {
+void LSM303C::write(lsm303c_xl_intgen_duration_config_t config, uint8_t int_number) {
     lsm303c_reg_t reg_address = lsm303c_reg_t(0);
     if (int_number == 1)
         reg_address = IG_DUR1;
@@ -350,7 +314,7 @@ void LSM303C::write_config(lsm303c_xl_intgen_duration_config_t config, uint8_t i
  * @param int_number: Interrupt generator number to write configuration to.
  * @param axis: Axis to write threshold for.
  */
-void LSM303C::write_config(lsm303c_xl_intgen_threshold_config_t config, uint8_t int_number, char axis) {
+void LSM303C::write(lsm303c_xl_intgen_threshold_config_t config, uint8_t int_number, char axis) {
     lsm303c_reg_t reg_address = lsm303c_reg_t(0);
     if (int_number == 2)
         reg_address = IG_THS2;
@@ -372,142 +336,112 @@ void LSM303C::write_config(lsm303c_xl_intgen_threshold_config_t config, uint8_t 
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_xl_inactive_threshold_t config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, ACT_THS);
-}
+void LSM303C::read(lsm303c_xl_inactive_threshold_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, ACT_THS); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_xl_inactive_duration_t config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, ACT_DUR);
-}
+void LSM303C::read(lsm303c_xl_inactive_duration_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, ACT_DUR); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_xl_rate_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG1);
-}
+void LSM303C::read(lsm303c_xl_rate_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG1); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_xl_filter_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG2);
-}
+void LSM303C::read(lsm303c_xl_filter_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG2); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_xl_interrupt_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG3);
-}
+void LSM303C::read(lsm303c_xl_interrupt_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG3); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_xl_scale_bw_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG4);
-}
+void LSM303C::read(lsm303c_xl_scale_bw_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG4); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_xl_int_dec_debug_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG5);
-}
+void LSM303C::read(lsm303c_xl_int_dec_debug_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG5); }
 
 /**
  * Configurations are type-specific.
  * Read configuration information from the device.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_xl_reboot_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG6);
-}
+void LSM303C::read(lsm303c_xl_reboot_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG6); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_xl_int_mode_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG7);
-}
+void LSM303C::read(lsm303c_xl_int_mode_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, CTRL_REG7); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_fifo_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, FIFO_CTRL); }
+void LSM303C::read(lsm303c_fifo_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_XL, FIFO_CTRL); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_mag_temp_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG1);
-}
+void LSM303C::read(lsm303c_mag_temp_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG1); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_mag_scale_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG2);
-}
+void LSM303C::read(lsm303c_mag_scale_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG2); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_mag_mode_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG3);
-}
+void LSM303C::read(lsm303c_mag_mode_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG3); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_mag_data_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG4);
-}
+void LSM303C::read(lsm303c_mag_data_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG4); }
 
 /**
  * Read configuration information from the device.
  * Configurations are type-specific.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_mag_bdu_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG5);
-}
+void LSM303C::read(lsm303c_mag_bdu_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, CTRL_REG5); }
 
 /**
  * Configurations are type-specific.
  * Read configuration information from the device.
  * @param config: Container for the configuration to be read into.
  */
-void LSM303C::read_config(lsm303c_mag_interrupt_config_t& config) {
-    read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, INT_CFG);
-}
+void LSM303C::read(lsm303c_mag_interrupt_config_t& config) { read((uint8_t*)&config, LSM303C_I2C_ADDRESS_MAG, INT_CFG); }
 
 /**
  * Read configuration information from the device.
@@ -515,7 +449,7 @@ void LSM303C::read_config(lsm303c_mag_interrupt_config_t& config) {
  * @param config: Container for the configuration to be read into.
  * @param int_number: Interrupt generator number to read from.
  */
-void LSM303C::read_config(lsm303c_xl_intgen_config_t& config, uint8_t int_number) {
+void LSM303C::read(lsm303c_xl_intgen_config_t& config, uint8_t int_number) {
     lsm303c_reg_t reg_address = lsm303c_reg_t(0);
     if (int_number == 1)
         reg_address = IG_CFG1;
@@ -530,7 +464,7 @@ void LSM303C::read_config(lsm303c_xl_intgen_config_t& config, uint8_t int_number
  * @param config: Container for the configuration to be read into.
  * @param int_number: Interrupt generator number to read from.
  */
-void LSM303C::read_config(lsm303c_xl_intgen_duration_config_t& config, uint8_t int_number) {
+void LSM303C::read(lsm303c_xl_intgen_duration_config_t& config, uint8_t int_number) {
     lsm303c_reg_t reg_address = lsm303c_reg_t(0);
     if (int_number == 1)
         reg_address = IG_DUR1;
@@ -546,7 +480,7 @@ void LSM303C::read_config(lsm303c_xl_intgen_duration_config_t& config, uint8_t i
  * @param int_number: Interrupt generator number to read from.
  * @param axis: Axis to read threshold from.
  */
-void LSM303C::read_config(lsm303c_xl_intgen_threshold_config_t& config, uint8_t int_number, char axis) {
+void LSM303C::read(lsm303c_xl_intgen_threshold_config_t& config, uint8_t int_number, char axis) {
     lsm303c_reg_t reg_address = lsm303c_reg_t(0);
     if (int_number == 2)
         reg_address = IG_THS2;
@@ -567,7 +501,7 @@ void LSM303C::read_config(lsm303c_xl_intgen_threshold_config_t& config, uint8_t 
  * Read raw acceleration data from the device.
  * @param data: Container to put a single raw read into.
  */
-void LSM303C::read_data(lsm303c_xl_raw_data_t& data) {
+void LSM303C::read(lsm303c_xl_raw_data_t& data) {
     uint8_t buffer[6];
     read(buffer, LSM303C_I2C_ADDRESS_XL, OUT_X_L, 6);
     data.x = buffer[0] | uint16_t(buffer[1]) << 8;
@@ -580,11 +514,11 @@ void LSM303C::read_data(lsm303c_xl_raw_data_t& data) {
  * The output of each axis reading is in mg.
  * @param data: Container for the corrected acceleration information.
  */
-void LSM303C::read_data(lsm303c_xl_corrected_data_t& data) {
+void LSM303C::read(lsm303c_xl_corrected_data_t& data) {
     lsm303c_xl_raw_data_t raw;
     lsm303c_xl_scale_bw_config_t config;
-    read_data(raw);
-    read_config(config);
+    read(raw);
+    read(config);
 
     uint8_t scale_code = config.xl_scale;
     float scale = 0.0;
@@ -606,9 +540,9 @@ void LSM303C::read_data(lsm303c_xl_corrected_data_t& data) {
  * Readings are in the form of degrees.
  * @param data: Container to put the read data into.
  */
-void LSM303C::read_data(lsm303c_xl_roll_pitch_data_t& data) {
+void LSM303C::read(lsm303c_xl_roll_pitch_data_t& data) {
     lsm303c_xl_corrected_data_t corrected_data;
-    read_data(corrected_data);
+    read(corrected_data);
 
     // Data needs to be in Gs for roll/pitch/yaw calculations
     float x = corrected_data.x / 1000.0;
@@ -633,7 +567,7 @@ void LSM303C::read_data(lsm303c_xl_roll_pitch_data_t& data) {
  * Read raw magnetometer and temperature data from the device.
  * @param data: Container to put a single raw reading into.
  */
-void LSM303C::read_data(lsm303c_mag_raw_data_t& data) {
+void LSM303C::read(lsm303c_mag_raw_data_t& data) {
     uint8_t buffer[8];
     read(buffer, LSM303C_I2C_ADDRESS_MAG, OUT_X_L, LSM303C_MAG_READ_SIZE);
     data.x = buffer[0] | uint16_t(buffer[1]) << 8;
@@ -647,16 +581,16 @@ void LSM303C::read_data(lsm303c_mag_raw_data_t& data) {
  * Temperature readings are in degrees C.
  * @param data: Container for the corrected magnetometer and temperature data.
  */
-void LSM303C::read_data(lsm303c_mag_corrected_data_t& data) {
+void LSM303C::read(lsm303c_mag_corrected_data_t& data) {
     lsm303c_mag_raw_data_t raw;
-    read_data(raw);
+    read(raw);
 
     data.x = float(raw.x) * LSM303C_MAG_SCALAR;
     data.y = float(raw.y) * LSM303C_MAG_SCALAR;
     data.z = float(raw.z) * LSM303C_MAG_SCALAR;
 }
 
-void LSM303C::read_data(lsm303c_temp_data_t& data) {
+void LSM303C::read(lsm303c_temp_data_t& data) {
     uint8_t buffer[2];
     read(buffer, LSM303C_I2C_ADDRESS_MAG, LSM303C_REGISTER::TEMP_L, LSM303C_TEMPERATURE_READ_SIZE);
     data.raw = (int16_t(buffer[1]) << 8) | buffer[0];
@@ -666,18 +600,17 @@ void LSM303C::read_data(lsm303c_temp_data_t& data) {
 float LSM303C::get_heading(bool tilt_correct_enabled) {
     float heading;
     lsm303c_mag_corrected_data_t mag_data;
-    read_data(mag_data);
+    read(mag_data);
 
     if (tilt_correct_enabled) {
         lsm303c_xl_roll_pitch_data_t roll_pitch_data;
-        read_data(roll_pitch_data);
+        read(roll_pitch_data);
 
         float roll = roll_pitch_data.roll * DEG_TO_RAD;
         float pitch = roll_pitch_data.pitch * DEG_TO_RAD;
 
         float x_corrected = mag_data.x * cos(roll) + mag_data.z * sin(roll);
-        float y_corrected =
-            mag_data.y * cos(pitch) + mag_data.y * sin(roll) * sin(pitch) - mag_data.z * cos(roll) * sin(pitch);
+        float y_corrected = mag_data.y * cos(pitch) + mag_data.y * sin(roll) * sin(pitch) - mag_data.z * cos(roll) * sin(pitch);
 
         heading = atan2(y_corrected, x_corrected) * RAD_TO_DEG;
 
@@ -704,9 +637,9 @@ float LSM303C::get_heading(bool tilt_correct_enabled) {
     return heading;
 }
 
-void LSM303C::read_data(lsm303c_orientation_data_t& data) {
+void LSM303C::read(lsm303c_orientation_data_t& data) {
     lsm303c_xl_roll_pitch_data_t roll_pitch;
-    read_data(roll_pitch);
+    read(roll_pitch);
     data.pitch = roll_pitch.pitch;
     data.roll = roll_pitch.roll;
     data.yaw = get_heading(true);
@@ -714,7 +647,7 @@ void LSM303C::read_data(lsm303c_orientation_data_t& data) {
 
 float LSM303C::get_temperature() {
     lsm303c_temp_data_t data;
-    read_data(data);
+    read(data);
     return data.temperature;
 }
 
@@ -728,12 +661,12 @@ float LSM303C::get_temperature() {
  * @param max_measurements The maximum number of levels to read from the FIFO cache.
  * @return: Number of readings taken from the FIFO buffer.
  */
-uint8_t LSM303C::read_fifo(lsm303c_xl_raw_data_t data[], uint8_t max_measurements) {
+uint8_t LSM303C::read(lsm303c_xl_raw_data_t data[], uint8_t max_measurements) {
     uint8_t buffer[LSM303C_XL_READ_SIZE * LSM303C_FIFO_CAPACITY];
     lsm303c_fifo_status_t fifo;
 
     // Calculate the number of bytes to be read from the buffer
-    read_status(fifo);
+    read(fifo);
     if (fifo.level > max_measurements) fifo.level = max_measurements;
     uint16_t read_size = LSM303C_XL_READ_SIZE * fifo.level;
     if (read_size > 0) {
@@ -750,19 +683,15 @@ uint8_t LSM303C::read_fifo(lsm303c_xl_raw_data_t data[], uint8_t max_measurement
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void LSM303C::read_status(lsm303c_xl_status_t& status) { read((uint8_t*)&status, LSM303C_I2C_ADDRESS_XL, STATUS_REG); }
+void LSM303C::read(lsm303c_xl_status_t& status) { read((uint8_t*)&status, LSM303C_I2C_ADDRESS_XL, STATUS_REG); }
 
-void LSM303C::read_status(lsm303c_fifo_status_t& status) { read((uint8_t*)&status, LSM303C_I2C_ADDRESS_XL, FIFO_SRC); }
+void LSM303C::read(lsm303c_fifo_status_t& status) { read((uint8_t*)&status, LSM303C_I2C_ADDRESS_XL, FIFO_SRC); }
 
-void LSM303C::read_status(lsm303c_mag_status_t& status) {
-    read((uint8_t*)&status, LSM303C_I2C_ADDRESS_MAG, STATUS_REG);
-}
+void LSM303C::read(lsm303c_mag_status_t& status) { read((uint8_t*)&status, LSM303C_I2C_ADDRESS_MAG, STATUS_REG); }
 
-void LSM303C::read_status(lsm303c_mag_interrupt_status_t& status) {
-    read((uint8_t*)&status, LSM303C_I2C_ADDRESS_MAG, INT_SRC);
-}
+void LSM303C::read(lsm303c_mag_interrupt_status_t& status) { read((uint8_t*)&status, LSM303C_I2C_ADDRESS_MAG, INT_SRC); }
 
-void LSM303C::read_status(lsm303c_xl_intgen_status_t& status, uint8_t int_number) {
+void LSM303C::read(lsm303c_xl_intgen_status_t& status, uint8_t int_number) {
     uint8_t reg_address = IG_SRC1;
     if (int_number == 2) reg_address = IG_SRC2;
     read((uint8_t*)&status, LSM303C_I2C_ADDRESS_XL, lsm303c_reg_t(reg_address));
