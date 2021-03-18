@@ -78,6 +78,8 @@ enum LSM303C_XL_ODR {
     LSM303C_XL_ODR_800HZ = 6
 };
 
+const uint16_t LSM303C_XL_ODR_HZ[] = {0, 10, 50, 100, 200, 400, 800};
+
 /**
  * Config for CTRL_REG1_A.
  *
@@ -172,6 +174,8 @@ typedef union {
  */
 enum LSM303C_XL_SCALE { LSM303C_XL_SCALE_2G = 0, LSM303C_XL_SCALE_4G = 2, LSM303C_XL_SCALE_8G = 3 };
 
+const uint8_t LSM303C_XL_FULL_RANGE_SCALES[] = {2, 4, 8};
+
 /**
  * Bandwidth of the anti-aliasing filter for acceleration measurements.
  * The bandwidth is always 400 Hz for sampling rates of 10 Hz and 50 Hz.
@@ -218,6 +222,8 @@ enum LSM303C_SELF_TEST_MODE { LSM303C_SELF_TEST_NORMAL = 0, LSM303C_POSITIVE_SEL
  * A decimation of 8 means that the regisers are only updated every 8 reads.
  */
 enum LSM303C_DECIMATION_MODE { LSM303C_DEC_NONE = 0, LSM303C_DEC_X2 = 1, LSM303C_DEC_X4 = 2, LSM303C_DEC_X8 = 3 };
+
+const uint8_t LSM303C_DECIMATION_FACTORS[] = {1, 2, 4, 8};
 
 /**
  * Configuration for CTRL_REG5_A
