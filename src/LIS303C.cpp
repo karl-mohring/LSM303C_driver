@@ -13,7 +13,7 @@ bool LSM303C::begin(uint8_t comms_mode, uint8_t xl_cs_pin, uint8_t mag_cs_pin) {
         _mag_chip_select_pin = mag_cs_pin;
     }
 
-    return comms_check();
+    return xl_comms_check();
 }
 
 /**
@@ -23,16 +23,24 @@ bool LSM303C::begin(uint8_t comms_mode, uint8_t xl_cs_pin, uint8_t mag_cs_pin) {
  *
  * @return: True if check passes; False if sensor IDs do not match known values or cannot be read.
  */
-bool LSM303C::comms_check() {
+bool LSM303C::xl_comms_check() {
     uint8_t xl_id;
-    uint8_t mag_id;
     read(&xl_id, LSM303C_I2C_ADDRESS_XL, WHO_AM_I);
+
+    return xl_id == LSM303C_XL_ID;
+}
+
+/**
+ * Check the status of communications with the accelerometer.
+ * The ID registers from the accelerometer register is read.
+ *
+ * @return: True if check passes; False if sensor IDs do not match known values or cannot be read.
+ */
+bool LSM303C::mag_comms_check() {
+    uint8_t mag_id;
     read(&mag_id, LSM303C_I2C_ADDRESS_MAG, WHO_AM_I);
 
-    // Add ArduinoLog to include files to run the debug output
-    // Log.warning(F("XL ID: %X (%X)\tMag ID: %X (%X)\n"), xl_id, LSM303C_XL_ID, mag_id, LSM303C_MAG_ID);
-
-    return ((xl_id == LSM303C_XL_ID) and (mag_id == LSM303C_MAG_ID));
+    return mag_id == LSM303C_MAG_ID;
 }
 
 /**
@@ -695,4 +703,28 @@ void LSM303C::read(lsm303c_xl_intgen_status_t& status, uint8_t int_number) {
     uint8_t reg_address = IG_SRC1;
     if (int_number == 2) reg_address = IG_SRC2;
     read((uint8_t*)&status, LSM303C_I2C_ADDRESS_XL, lsm303c_reg_t(reg_address));
+}
+
+uint8_t LSM303C::get_odr_code(float odr) {
+    uint8_t odr_code = 0;
+    for (size_t i = 0; i < sizeof(LSM303C_XL_ODR_HZ) / sizeof(LSM303C_XL_ODR_HZ[0]); i++) {
+        if (odr == LSM303C_XL_ODR_HZ[i]) {
+            odr_code = i;
+            break;
+        }
+    }
+
+    return odr_code;
+}
+
+uint8_t LSM303C::get_full_scale_range_code(uint8_t range) {
+    uint8_t range_code = 0;
+    for (size_t i = 0; i < sizeof(LSM303C_XL_FULL_RANGE_SCALES) / sizeof(LSM303C_XL_FULL_RANGE_SCALES[0]); i++) {
+        if (range == LSM303C_XL_FULL_RANGE_SCALES[i]) {
+            range_code = i;
+            break;
+        }
+    }
+
+    return range_code;
 }

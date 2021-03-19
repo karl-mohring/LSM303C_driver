@@ -219,7 +219,7 @@ enum LSM303C_SELF_TEST_MODE { LSM303C_SELF_TEST_NORMAL = 0, LSM303C_POSITIVE_SEL
 /**
  * Accelerometer reading decimation mode.
  * Decimation refers to how often the output registers or FIFO buffer is update in comparison to sample rate.
- * A decimation of 8 means that the regisers are only updated every 8 reads.
+ * A decimation of 8 means that the registers are only updated every 8 reads.
  */
 enum LSM303C_DECIMATION_MODE { LSM303C_DEC_NONE = 0, LSM303C_DEC_X2 = 1, LSM303C_DEC_X4 = 2, LSM303C_DEC_X8 = 3 };
 
@@ -649,7 +649,6 @@ typedef union {
 /**
  * Data output type for magnetometer.
  * Output is in a raw ADC format, which is 0.58 milligauss per level.
- * Temperature output is 0.125 deg C per level.
  */
 typedef struct {
     int16_t x;
@@ -660,7 +659,6 @@ typedef struct {
 /**
  * Data output type for magnetometer.
  * Magnetometer output is in milli-gauss.
- * Temperature output in deg C.
  */
 typedef struct {
     float x;
@@ -741,7 +739,8 @@ class LSM303C {
     bool begin(uint8_t comms_mode = LSM303C_I2C_MODE, uint8_t xl_cs_pin = 0xFF, uint8_t mag_cs_pin = 0xFF);
 
     // Check that communications are working by reading from the device
-    bool comms_check();
+    bool xl_comms_check();
+    bool mag_comms_check();
 
     // Write configuration to a register
     void write(lsm303c_xl_inactive_threshold_t config);
@@ -808,6 +807,9 @@ class LSM303C {
     void read(lsm303c_xl_intgen_status_t& status, uint8_t int_number = 1);
 
     void set_declination(float declination);
+
+    uint8_t get_odr_code(float odr);
+    uint8_t get_full_scale_range_code(uint8_t range);
 
    private:
     typedef enum LSM303C_REGISTER {
